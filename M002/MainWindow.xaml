@@ -1,0 +1,72 @@
+﻿<Window x:Class="M002.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="450" Width="300"
+		WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="5">
+		<!--Label: Ausgabe von Texten-->
+		<!--Besser: TextBlock-->
+		<Label Content="Hallo Welt"/>
+		<TextBlock Text="Hallo Welt" FontFamily="Forte" TextAlignment="Center" FontWeight="Bold"/>
+	
+		<!--Image: Bilder anzeigen-->
+		<Image Source="C:\Users\lk3\source\repos\WPF_2026_01_27\M002\bin\Debug\net9.0-windows\ppedv-Logo.png"/>
+
+		<!--Button: Userinteraktion-->
+		<TextBlock Name="CounterText"/>
+		<Button Content="Hallo Welt" Click="CounterIncrement"/>
+		
+		<!--TextBox: Texteingabe vom User-->
+		<TextBox Name="Eingabe"/>
+		<Button Content="Eingabe bestätigen" Click="EingabeBestaetigen"/>
+
+		<TextBox AcceptsReturn="True" AcceptsTab="True"/>
+		
+		<!--ComboBox: Dropdown Menü-->
+		<ComboBox>
+			<ComboBoxItem Content="Text1"/>
+			<ComboBoxItem Content="Text2"/>
+			<ComboBoxItem Content="Text3"/>
+		</ComboBox>
+
+		<ComboBox Name="Dropdown"/>
+
+		<!--CheckBox: An-Aus Box-->
+		<CheckBox Content="Wähle mich aus!" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+		
+		<!--RadioButton: Auswahl von einem aus X-->
+		<RadioButton Content="RadioButton 1" GroupName="RB"/>
+		<RadioButton Content="RadioButton 2" GroupName="RB"/>
+		<RadioButton Content="RadioButton 3" GroupName="RB"/>
+		
+		<!--Slider: Bereichsauswahl (Drag and Drop)-->
+		<TextBlock Name="SliderOutput"/>
+		<Slider Minimum="0" Maximum="100" Value="30" ValueChanged="Slider_ValueChanged"/>
+		
+		<Slider Minimum="0" Maximum="100" Value="30" ValueChanged="Slider_ValueChanged"
+				TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight" Foreground="Black"/>
+		
+		<!--ProgressBar: Fortschritt anzeigen-->
+		<ProgressBar Minimum="0" Maximum="100" Value="50" Height="20"
+					 IsIndeterminate="True"/>
+		
+		<!--Menu: Menüleiste-->
+		<!--Beim Menu müssen Unterelemente ineinander verschachtelt werden-->
+		<!--Hier müssen genauso wie bei Button auch Click-Event definiert werden-->
+		<Menu>
+			<MenuItem Header="Datei">
+				<MenuItem Header="Neu">
+					<MenuItem Header="Projekt" Click="MenuItem_Click"/>
+				</MenuItem>
+				<MenuItem Header="Öffnen"/>
+				<MenuItem Header="Speichern"/>
+				<MenuItem Header="Schließen"/>
+			</MenuItem>
+		</Menu>
+
+		<Separator Margin="10"/>
+		
+		<!--ListBox: Liste von Elementen, die selektiert werden können-->
+		<ListBox Name="LB" SelectionMode="Extended"/>
+	</StackPanel>
+</Window>

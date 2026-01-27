@@ -1,0 +1,94 @@
+﻿<Window x:Class="M004.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:M004"
+        Title="MainWindow" Height="450" Width="800"
+		WindowStartupLocation="CenterScreen" Topmost="True">
+	<Window.Resources>
+		<!--Resource: Objekt, welches im Frontend eingebunden wird-->
+		<!--Können in beliebigen GUI-Komponenten abgelegt werden (Window, StackPanel, hier)-->
+		<!--Werden per StaticResource angegriffen (über den Key)-->
+		<local:ScoreToGradeConverter x:Key="SGC"/>
+	</Window.Resources>
+
+	<StackPanel Margin="10">
+		<!--Binding-->
+		<!--Synchronisation zw. zwei GUI Komponenten-->
+		<!--Wenn sich die eine Komponente verändert, verändert sich die andere gleich mit (ohne Backend Code)-->
+		<!--Generell werden Bindings am Ziel definiert-->
+
+		<!--Aufgabe: Slider soll seinen Wert in einem Textfeld anzeigen-->
+		<TextBlock Text="{Binding ElementName=Slider, Path=Value}"/>
+		<DockPanel>
+			<!--Aufgabe 2: Slider soll Minimum und Maximum in zwei Textfeldern anzeigen-->
+			<TextBlock DockPanel.Dock="Left" Margin="0, 0, 5, 0" Text="{Binding ElementName=Slider, Path=Minimum}"/>
+			<TextBlock DockPanel.Dock="Right" Margin="5, 0, 0, 0" Text="{Binding ElementName=Slider, Path=Maximum}"/>
+			<Slider Minimum="0" Maximum="100" Value="0" Name="Slider"
+					TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True"/>
+		</DockPanel>
+
+		<!--Binding Mode-->
+		<!--Richtung des Bindings-->
+		<!--Standard: TwoWay-->
+		<!--OneWay, OneWayToSource: Unidirektional-->
+
+		<!--OneWay: Quelle zu Ziel (Slider -> TextBox), aber nicht umgekehrt-->
+		<TextBox Text="{Binding ElementName=Slider2, Path=Value, Mode=OneWay}"/>
+		<Slider Minimum="0" Maximum="100" Value="20" Name="Slider2"/>
+
+		<!--UpdateSourceTrigger-->
+		<!--Definiert, wann das Binding durchgeführt wird-->
+		<!--PropertyChanged: Sofort-->
+		<!--LostFocus: Wenn die Komponente den Fokus verliert (Tabulator, andere Komponente verwenden)-->
+		<!--Explicit: Über Backend Code (C#-Code)-->
+
+		<!--Standard hier: Slider -> TextBox: PropertyChanged, TextBox -> Slider: LostFocus-->
+		<TextBox Text="{Binding ElementName=Slider3, Path=Value, UpdateSourceTrigger=Explicit}" Name="TB"/>
+		<Slider Minimum="0" Maximum="100" Value="20" Name="Slider3"/>
+		<Button Content="Explicit" Click="Button_Click"/>
+
+		<!--StringFormat-->
+		<!--Passt den Wert, der beim Binding übergeben wird, vor der Anzeige nochmal an-->
+		<!--WICHTIG: Hochkomma verwenden, {0}: Der Wert des Bindings selbst, F2: Auf zwei Kommastellen abschneiden-->
+		<TextBox Text="{Binding ElementName=Slider4, Path=Value, StringFormat='Preis: {0:F2}€'}"/>
+		<Slider Minimum="0" Maximum="100" Value="20" Name="Slider4"/>
+
+		<!--ValueConverter-->
+		<!--Bei einem Binding C#-Code zwischenschalten-->
+		<!--Wird generell verwendet, um den Wert beim Binding anzupassen-->
+
+		<!--Beispiel: Schulnoten anzeigen anhand eines Sliders-->
+		<Slider Minimum="0" Maximum="100" Value="0" Name="ScoreSlider"
+				TickFrequency="1" IsSnapToTickEnabled="True"/>
+		<!--StaticResource: Siehe Window.Resources Zeile 11-->
+		<TextBlock Text="{Binding ElementName=ScoreSlider, Path=Value, Converter={StaticResource SGC}}"/>
+
+		<!--MultiBinding-->
+		<!--Bindet auf mehrere Quellen zu einem Ziel-->
+		<!--Über einen erforderlichen Converter, werden die einzelnen Quellwerte kombiniert-->
+
+		<!--Beispiel: 4 Slider, Button soll sein Margin aus diesen 4 Werten berechnen-->
+		<Slider Minimum="0" Maximum="100" Value="0" Name="LSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="0" Name="TSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="0" Name="RSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="0" Name="BSlider"/>
+		<Button Content="Ein Margin">
+			<Button.Margin>
+				<!--WICHTIG: B bei Binding wird groß geschrieben-->
+				<MultiBinding>
+					<MultiBinding.Bindings>
+						<Binding ElementName="LSlider" Path="Value"/>
+						<Binding ElementName="TSlider" Path="Value"/>
+						<Binding ElementName="RSlider" Path="Value"/>
+						<Binding ElementName="BSlider" Path="Value"/>
+					</MultiBinding.Bindings>
+
+					<MultiBinding.Converter>
+						<local:FourValueToMarginConverter/>
+					</MultiBinding.Converter>
+				</MultiBinding>
+			</Button.Margin>
+		</Button>
+		<Separator/>
+	</StackPanel>
+</Window>

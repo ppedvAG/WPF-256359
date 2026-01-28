@@ -1,0 +1,73 @@
+﻿<Window x:Class="M006.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:sys="clr-namespace:System;assembly=netstandard"
+        xmlns:local="clr-namespace:M006"
+        Title="MainWindow" Height="450" Width="800"
+		WindowStartupLocation="CenterScreen" Topmost="True"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		Style="{StaticResource {x:Type Window}}">
+	<Window.Resources>
+		<SolidColorBrush Color="Aqua" x:Key="DefaultBackgroundColor"/>
+		<sys:Double x:Key="DefaultFontSize">20</sys:Double>
+
+		<!--Style ohne Key-->
+		<!--<Style TargetType="Button">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="Background" Value="Aqua"/>
+			<Setter Property="Foreground" Value="Black"/>
+		</Style>-->
+	</Window.Resources>
+    <StackPanel Margin="10">
+		<!--Resources-->
+		<!--Objekte im XAML ablegen-->
+		<!--Alles was in einer Variable gespeichert werden kann, kann auch in Resources abgelegt werden-->
+
+		<!--Resources angreifen-->
+		<!--StaticResource: Resource kopieren; Wenn die Resource verändert wird, gibt es hier keine Aktualisierung-->
+		<Button Background="{StaticResource DefaultBackgroundColor}"
+				Content="Hallo Welt!"/>
+
+		<!--DynamicResource: Resource referenzieren; Wenn die Resource verändert wird, gibt es hier eine Aktualisierung-->
+		<Button FontSize="{StaticResource DefaultFontSize}"
+				Content="Hallo Welt!"/>
+		<Button FontSize="{DynamicResource DefaultFontSize}"
+				Content="Hallo Welt!"/>
+		<Slider Minimum="10" Maximum="100" Value="{Binding Resources[DefaultFontSize]}"/>
+		
+		<!--x:Static: Statischer Zugriff auf Felder (static Felder)-->
+		<!--Wird auch für Enums verwendet-->
+		<DatePicker SelectedDate="{x:Static sys:DateTime.Now}"/>
+		
+		<!--ResourceDictionary-->
+		<!--Externe Datei mit Resources-->
+		<!--Wird über App.xaml eingebunden-->
+		<!--Siehe Extern.xaml und App.xaml-->
+		<TextBlock Background="{StaticResource DefaultBackground}"
+				   Foreground="{StaticResource DefaultForeground}"
+				   Name="Output"/>
+		
+		<!--................................................................................................-->
+		
+		<!--Style-->
+		<!--Allgemeines Aussehen für GUI-Elemente definieren (Anwendungsweit)-->
+		<!--Generell eine Sammlung von Settern, die verschiedenste Properties setzen-->
+		<!--Muss nicht immer mit Optik zusammenhängen-->
+		<!--Jedes GUI-Element hat einen Style Eigenschaft (jedes Element kann einen Style bekommen)-->
+		<Button Content="Button mit Style">
+			<Button.Style>
+				<!--WICHTIG: TargetType nicht vergessen-->
+				<Style TargetType="Button">
+					<Setter Property="FontSize" Value="20"/>
+					<Setter Property="Background" Value="Aqua"/>
+					<Setter Property="Foreground" Value="Black"/>
+				</Style>
+			</Button.Style>
+		</Button>
+		
+		<!--Style als Resource-->
+		<!--Wenn ein Style als Resource definiert wird, muss dieser keinen Key besitzen-->
+		<!---> Globaler Style-->
+		<Button Content="Button mit globalem Style"/>
+	</StackPanel>
+</Window>

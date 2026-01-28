@@ -10,24 +10,33 @@
 			<GradientStop Offset="1" Color="Yellow"/>
 		</LinearGradientBrush>
 	</Window.Background>
+	<Window.Resources>
+		<Style TargetType="UniformGrid">
+			<Setter Property="Columns" Value="2"/>
+			<Setter Property="Margin" Value="0, 0, 0, 5"/>
+		</Style>
+		<Style TargetType="TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+	</Window.Resources>
     <StackPanel Margin="5">
-		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+		<UniformGrid>
 			<TextBlock Text="Vorname: "/>
 			<TextBox />
 		</UniformGrid>
-		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+		<UniformGrid>
 			<TextBlock Text="Nachname: "/>
 			<TextBox />
 		</UniformGrid>
-		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+		<UniformGrid>
 			<TextBlock Text="Geburtsdatum: "/>
 			<DatePicker/>
 		</UniformGrid>
-		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+		<UniformGrid>
 			<TextBlock Text="Verheiratet: "/>
 			<CheckBox />
 		</UniformGrid>
-		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+		<UniformGrid>
 			<TextBlock Text="Lieblingsfarbe: "/>
 			<ComboBox>
 				<ComboBoxItem Content="Rot" Foreground="Red"/>
@@ -36,8 +45,8 @@
 				<ComboBoxItem Content="Gelb" Foreground="Yellow"/>
 			</ComboBox>
 		</UniformGrid>
-		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
-			<TextBlock Text="Geschlecht: "/>
+		<UniformGrid>
+			<TextBlock Text="Geschlecht: " Style="{x:Null}"/>
 			<StackPanel>
 				<RadioButton Content="M" GroupName="G"/>
 				<RadioButton Content="W" GroupName="G"/>

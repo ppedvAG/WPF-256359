@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="M011.ColorPickerUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:M011"
+			 Name="Self">
+	<UserControl.Resources>
+		<local:ColorToBrushConverter x:Key="CBC"/>
+	</UserControl.Resources>
+	<StackPanel Margin="10">
+		<!--Hier müssen jetzt Text (R:, G:, ...) und Farbe (Rot, Grün, ...) mitgegeben werden-->
+		<!--Lösung: DependencyProperties-->
+		<local:ColorSlider Text="R: " TextColor="Red" SliderValue="{Binding ElementName=Self, Path=R, Mode=TwoWay}"/>
+		<local:ColorSlider Text="G: " TextColor="Green" SliderValue="{Binding ElementName=Self, Path=G, Mode=TwoWay}"/>
+		<local:ColorSlider Text="B: " TextColor="Blue" SliderValue="{Binding ElementName=Self, Path=B, Mode=TwoWay}"/>
+		<local:ColorSlider Text="A: " TextColor="Black" SliderValue="{Binding ElementName=Self, Path=A, Mode=TwoWay}"/>
+
+		<!--Weitere Aufgaben: -->
+		<!--Rectangle/PickedColor in ein DependencyProperty schreiben-->
+		<!-- -> Dieses DP kann in weiterer Folge an eine Variable im MainWindow gebunden werden-->
+		<!--Beim Laden einer Farbe aus MainWindow (bei Start der Anwendung), müssen die Slider auch richtig gesetzt werden-->
+		<TextBlock Text="{Binding ElementName=ColorRect, Path=Fill, StringFormat='Picked Color: {0}'}" TextAlignment="Center"/>
+		<Rectangle Fill="{Binding ElementName=Self, Path=PickedColor, Converter={StaticResource CBC}}" Name="ColorRect" Stroke="Black" StrokeThickness="2" Width="150" Height="150"/>
+	</StackPanel>
+</UserControl>

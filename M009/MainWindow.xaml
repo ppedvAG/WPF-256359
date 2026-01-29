@@ -54,7 +54,7 @@
 		
 		<!--Validierung in der Kurzform-->
 		<!--Mit eigener MarkupExtension-->
-		<TextBox Text="{local:ValidationBinding Binding={Binding Vorname}, Rule1={StaticResource LengthV}, Rule2={StaticResource LetterV}}"
+		<TextBox Text="{local:ValidationBinding Binding={Binding Vorname}, Rule1={local:Rule RuleType=local:LengthValidation, Data1=5, Data2=20}, Rule2={StaticResource LetterV}}"
 				 Validation.ErrorTemplate="{StaticResource ErrorTemp}"/>
 		
 		<!--ValidateOnException-->

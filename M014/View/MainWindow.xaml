@@ -1,0 +1,28 @@
+﻿<Window x:Class="M014.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:M014"
+		xmlns:vm="clr-namespace:M014.ViewModel"
+        Title="MainWindow" Height="450" Width="800"
+		WindowStartupLocation="CenterScreen" Topmost="True">
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+    <StackPanel>
+		<!--MVVM-->
+		<!--Strikte Trennung von Logik und GUI-->
+		<!--Model-View-ViewModel-->
+		
+		<!--Plan-->
+		<!--1. Ordnerstruktur herstellen-->
+		<!--2. Bestehende Dateien in die entsprechenden Ordner schieben-->
+		<!--2.1. Namespaces anpassen (MainWindow.xaml, MainWindow.xaml.cs, App.xaml)-->
+		<!--3. Für jede View eine ViewModel Klasse erstellen-->
+		<!--3.1. Für jede View diese neue ViewModel Klasse als DataContext einbinden-->
+		<!--4. Bestehende Events/Properties in die ViewModel Klassen verschieben-->
+
+		<TextBlock Text="{Binding Counter}"/>
+		<Button Content="Counter++"
+				Command="{Binding CounterCommand}"/>
+	</StackPanel>
+</Window>

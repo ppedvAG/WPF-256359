@@ -1,0 +1,56 @@
+﻿<Window x:Class="M014.View.PersonenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:M014"
+		xmlns:conv="clr-namespace:M014.Converter"
+		xmlns:vm="clr-namespace:M014.ViewModel"
+        Title="MainWindow" Height="450" Width="800"
+		WindowStartupLocation="CenterScreen" Topmost="True">
+	<Window.Resources>
+		<conv:StringListUnpackConverter x:Key="Unpack"/>
+	</Window.Resources>
+	<Window.DataContext>
+		<vm:PersonViewViewModel x:Name="VM"/>
+	</Window.DataContext>
+    <DataGrid ItemsSource="{Binding Personen}"
+			  
+			  CanUserAddRows="False"
+			  CanUserDeleteRows="False"
+			  CanUserResizeRows="False"
+			  
+			  AutoGenerateColumns="False"
+			  
+			  AlternatingRowBackground="LightGray"
+			  AlternationCount="5"
+			  GridLinesVisibility="Horizontal"
+			  
+			  EnableRowVirtualization="True"
+			  VirtualizingPanel.CacheLength="3"
+			  VirtualizingPanel.CacheLengthUnit="Page"
+			  VirtualizingPanel.ScrollUnit="Item"
+			  VirtualizingPanel.VirtualizationMode="Recycling"
+			  
+			  SelectionMode="Single"
+			  Name="DG">
+		<DataGrid.Columns>
+			<DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+			<DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
+			<DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
+			<DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat='dddd, dd. MMMM yyyy'}"/>
+			<DataGridTextColumn Header="Alter" Binding="{Binding Alter}"/>
+			<DataGridTextColumn Header="Jobtitel" Binding="{Binding Job.Titel}"/>
+			<DataGridTextColumn Header="Gehalt" Binding="{Binding Job.Gehalt, StringFormat='\{0}€'}"/>
+			<DataGridTextColumn Header="Einstellungsdatum" Binding="{Binding Job.Einstellungsdatum, StringFormat='dd.MM.yyyy'}"/>
+			<DataGridTextColumn Header="Hobbies" Binding="{Binding Hobbies, Converter={StaticResource Unpack}}"/>
+			<DataGridTemplateColumn>
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Button Content="Person löschen" Margin="-2"
+								Command="{Binding ElementName=VM, Path=PersonLoeschenCommand}"
+								CommandParameter="{Binding ElementName=DG, Path=SelectedItem}"/>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+		</DataGrid.Columns>
+    </DataGrid>
+</Window>
